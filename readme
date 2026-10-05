@@ -1,0 +1,251 @@
+TechLogix S.A.
+
+Sistema web Back End desarrollado con Django para la gestión del catálogo e inventario de productos tecnológicos de TechLogix S.A.
+
+Tecnologías utilizadas
+
+Python
+
+Django
+
+PostgreSQL
+
+HTML5
+
+CSS3
+
+Variables de entorno mediante .env
+
+Funcionalidades
+
+El sistema permite:
+
+Visualizar la página de inicio.
+
+Consultar el catálogo público de productos.
+
+Buscar productos por nombre.
+
+Filtrar productos por categoría.
+
+Iniciar sesión en el área de administración.
+
+Crear productos.
+
+Consultar productos.
+
+Editar productos.
+
+Eliminar productos.
+
+Controlar el acceso según el perfil del usuario.
+
+Perfiles de usuario
+Administrador
+
+El perfil Administrador posee permisos para:
+
+Ver productos.
+
+Crear productos.
+
+Editar productos.
+
+Eliminar productos.
+
+Asistente
+
+El perfil Asistente posee permisos únicamente para:
+
+Ver productos.
+
+El Asistente no puede crear, editar ni eliminar productos. Estas restricciones se aplican tanto en la interfaz como en el backend.
+
+Modelos
+Categoria
+
+Campos:
+
+nombre
+
+descripcion
+
+Producto
+
+Campos:
+
+nombre
+
+categoria
+
+precio
+
+stock
+
+sku
+
+fecha_ingreso
+
+Estructura de templates
+
+El proyecto cuenta con las siguientes vistas:
+
+index.html — Página de inicio pública.
+
+catalogo.html — Catálogo público con búsqueda y filtrado.
+
+login.html — Inicio de sesión.
+
+admin_panel.html — Panel de administración.
+
+producto_form.html — Creación y edición de productos.
+
+producto_confirmar_eliminar.html — Confirmación de eliminación.
+
+Configuración de PostgreSQL
+
+Las credenciales de PostgreSQL se almacenan mediante variables de entorno en un archivo .env.
+
+Ejemplo:
+
+DB_NAME=nombre_base_datos
+DB_USER=usuario_postgres
+DB_PASSWORD=contraseña
+DB_HOST=localhost
+DB_PORT=5432
+
+
+El archivo .env no debe ser incluido en el repositorio.
+
+Migraciones
+
+Para crear las migraciones:
+
+python manage.py makemigrations
+
+
+Para aplicarlas:
+
+python manage.py migrate
+
+Creación de grupos
+
+El proyecto incluye un comando para crear los grupos y permisos:
+
+python manage.py crear_grupos
+
+
+Los grupos creados son:
+
+Administrador
+
+Asistente
+
+Usuarios de prueba
+Administrador
+
+Usuario:
+
+PENDIENTE
+
+
+Contraseña:
+
+PENDIENTE
+
+Asistente
+
+Usuario:
+
+PENDIENTE
+
+
+Contraseña:
+
+PENDIENTE
+
+
+Las credenciales serán reemplazadas una vez creados los usuarios de prueba.
+
+Seguridad
+
+El sistema utiliza:
+
+Autenticación de Django.
+
+@login_required para proteger el área administrativa.
+
+Control de permisos según grupo.
+
+Protección CSRF mediante {% csrf_token %}.
+
+Restricción de operaciones CRUD a nivel de backend.
+
+Variables de entorno para las credenciales de PostgreSQL.
+
+Uso de Inteligencia Artificial
+
+Durante el desarrollo se utilizó Inteligencia Artificial como apoyo para:
+
+Estructuración inicial del proyecto Django.
+
+Creación y revisión de modelos.
+
+Configuración de operaciones CRUD.
+
+Implementación de permisos y grupos.
+
+Depuración de posibles errores de conexión con PostgreSQL.
+
+Generación y revisión de templates HTML.
+
+Revisión de medidas de seguridad.
+
+Registro de prompts utilizados
+
+Prompt 1 — Configuración de PostgreSQL
+
+¿Cómo configurar una conexión segura entre Django y PostgreSQL utilizando variables de entorno mediante un archivo .env?
+
+Prompt 2 — Permisos
+
+¿Cómo implementar en Django dos grupos de usuarios, Administrador y Asistente, donde el Administrador tenga permisos CRUD y el Asistente solamente permiso de lectura?
+
+Prompt 3 — CRUD
+
+¿Cómo implementar las operaciones Crear, Leer, Actualizar y Eliminar para un modelo Producto en Django utilizando formularios y vistas protegidas?
+
+Prompt 4 — Seguridad
+
+¿Cómo restringir las operaciones de creación, edición y eliminación en Django a un grupo específico y evitar que un usuario sin permisos pueda acceder directamente a las URLs?
+
+Prompt 5 — PostgreSQL
+
+¿Cómo solucionar y comprobar errores de conexión entre Django y PostgreSQL utilizando las variables DB_NAME, DB_USER, DB_PASSWORD, DB_HOST y DB_PORT?
+
+Ejecución del proyecto
+
+Instalar las dependencias:
+
+pip install -r requirements.txt
+
+
+Aplicar migraciones:
+
+python manage.py makemigrations
+python manage.py migrate
+
+
+Crear los grupos:
+
+python manage.py crear_grupos
+
+
+Iniciar el servidor:
+
+python manage.py runserver
+
+
+El proyecto estará disponible localmente en:
+
+http://127.0.0.1:8000/

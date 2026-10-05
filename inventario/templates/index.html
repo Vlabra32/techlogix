@@ -1,0 +1,66 @@
+{% load static %}
+
+<!DOCTYPE html> <html lang="es"> <head> <meta charset="UTF-8"> <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TechLogix S.A. - Inicio</title>
+
+<link rel="stylesheet" href="{% static 'inventario/css/styles.css' %}">
+
+</head> <body>
+<header class="navbar">
+    <a href="{% url 'inicio' %}" class="logo">
+        TechLogix S.A.
+    </a>
+
+    <nav class="nav-links">
+        <a href="{% url 'inicio' %}">Inicio</a>
+        <a href="{% url 'catalogo' %}">Catálogo</a>
+        <a href="{% url 'admin_panel' %}">Administración</a>
+    </nav>
+</header>
+
+
+<main class="hero">
+
+    <div class="hero-content">
+
+        <h1>
+            Bienvenido a <span>TechLogix</span>
+        </h1>
+
+        <p>
+            Distribuidora de tecnología e inventario.
+        </p>
+
+        <p>
+            Sistema de gestión de catálogo e inventario
+            de productos tecnológicos.
+        </p>
+
+        <div>
+            <a
+                class="btn btn-primary"
+                href="{% url 'catalogo' %}"
+            >
+                Ver catálogo
+            </a>
+
+            <a
+                class="btn btn-secondary"
+                href="{% url 'admin_panel' %}"
+            >
+                Área de administración
+            </a>
+        </div>
+
+    </div>
+
+</main>
+
+
+<footer>
+    <p>
+        TechLogix S.A. — Gestión tecnológica
+    </p>
+</footer>
+
+</body> </html>

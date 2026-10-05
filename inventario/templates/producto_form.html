@@ -1,0 +1,93 @@
+<!DOCTYPE html> <html lang="es"> <head> <meta charset="UTF-8"> <meta name="viewport" content="width=device-width, initial-scale=1.0"> <title>{{ titulo }} - TechLogix S.A.</title>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background: #f4f6f8;
+        margin: 0;
+    }
+
+    header {
+        background: #172b4d;
+        color: white;
+        padding: 20px;
+        text-align: center;
+    }
+
+    .contenedor {
+        max-width: 600px;
+        margin: 40px auto;
+        background: white;
+        padding: 30px;
+        border-radius: 10px;
+        box-shadow: 0 3px 12px rgba(0,0,0,0.1);
+    }
+
+    .campo {
+        margin-bottom: 20px;
+    }
+
+    label {
+        display: block;
+        font-weight: bold;
+        margin-bottom: 5px;
+    }
+
+    input, select {
+        width: 100%;
+        padding: 10px;
+        box-sizing: border-box;
+    }
+
+    .error {
+        color: #dc3545;
+        font-size: 14px;
+    }
+
+    button {
+        padding: 12px 20px;
+        background: #1976d2;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+
+    .volver {
+        margin-left: 10px;
+        text-decoration: none;
+        color: #172b4d;
+    }
+</style>
+
+</head> <body> <header> <h1>TechLogix S.A.</h1> </header> <div class="contenedor">
+<h2>{{ titulo }}</h2>
+
+<form method="post">
+    {% csrf_token %}
+
+    {% for field in form %}
+        <div class="campo">
+
+            {{ field.label_tag }}
+
+            {{ field }}
+
+            {% if field.errors %}
+                {% for error in field.errors %}
+                    <div class="error">{{ error }}</div>
+                {% endfor %}
+            {% endif %}
+
+        </div>
+    {% endfor %}
+
+    <button type="submit">
+        Guardar
+    </button>
+
+    <a class="volver" href="{% url 'admin_panel' %}">
+        Cancelar
+    </a>
+</form>
+
+</div> </body> </html>

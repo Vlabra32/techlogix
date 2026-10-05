@@ -1,0 +1,67 @@
+<!DOCTYPE html> <html lang="es"> <head> <meta charset="UTF-8"> <meta name="viewport" content="width=device-width, initial-scale=1.0"> <title>Eliminar producto - TechLogix S.A.</title>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background: #f4f6f8;
+        margin: 0;
+    }
+
+    .contenedor {
+        max-width: 500px;
+        margin: 100px auto;
+        background: white;
+        padding: 30px;
+        border-radius: 10px;
+        text-align: center;
+        box-shadow: 0 3px 12px rgba(0,0,0,0.1);
+    }
+
+    .advertencia {
+        color: #dc3545;
+        font-weight: bold;
+    }
+
+    button {
+        padding: 12px 20px;
+        background: #dc3545;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+
+    a {
+        margin-left: 10px;
+        color: #172b4d;
+        text-decoration: none;
+    }
+</style>
+
+</head> <body> <div class="contenedor">
+<h1>Eliminar producto</h1>
+
+<p class="advertencia">
+    ¿Estás seguro de que deseas eliminar este producto?
+</p>
+
+<p>
+    <strong>{{ producto.nombre }}</strong>
+</p>
+
+<p>
+    SKU: {{ producto.sku }}
+</p>
+
+<form method="post">
+    {% csrf_token %}
+
+    <button type="submit">
+        Sí, eliminar
+    </button>
+
+    <a href="{% url 'admin_panel' %}">
+        Cancelar
+    </a>
+</form>
+
+</div> </body> </html>
