@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Administración - TechLogix S.A.</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f6f8;
+            margin: 0;
+        }
+
+        header {
+            background: #172b4d;
+            color: white;
+            padding: 20px;
+        }
+
+        header h1 {
+            margin: 0;
+        }
+
+        nav {
+            margin-top: 10px;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            margin-right: 15px;
+        }
+
+        .contenedor {
+            max-width: 1100px;
+            margin: 30px auto;
+            padding: 20px;
+        }
+
+        .barra-superior {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 10px 15px;
+            border-radius: 5px;
+            text-decoration: none;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+
+        .btn-crear {
+            background: #198754;
+        }
+
+        .btn-editar {
+            background: #1976d2;
+        }
+
+        .btn-eliminar {
+            background: #dc3545;
+        }
+
+        .btn-inicio {
+            background: #6c757d;
+        }
+
+        .mensaje {
+            padding: 12px;
+            margin-bottom: 20px;
+            border-radius: 5px;
+            background: #d1e7dd;
+            color: #0f5132;
+        }
+
+        .tabla-contenedor {
+            background: white;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 3px 12px rgba(0,0,0,0.1);
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th,
+        td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        th {
+            background: #172b4d;
+            color: white;
+        }
+
+        tr:hover {
+            background: #f8f9fa;
+        }
+
+        .acciones {
+            display: flex;
+            gap: 8px;
+        }
+
+        .sin-productos {
+            text-align: center;
+            padding: 30px;
+            color: #666;
+        }
+
+        .usuario {
+            margin-bottom: 20px;
+            color: #555;
+        }
+
+        .logout {
+            display: inline;
+        }
+
+        .logout button {
+            background: none;
+            border: none;
+            color: white;
+            cursor: pointer;
+            font-size: inherit;
+            padding: 0;
+        }
+    </style>
+</head>
+
+<body>
+
+<header>
+    <h1>TechLogix S.A.</h1>
+
+    <nav>
+        <a href="{% url 'inicio' %}">Inicio</a>
+        <a href="{% url 'catalogo' %}">Catálogo</a>
+
+        <form method="post"
+              action="{% url 'logout' %}"
+              class="logout">
+            {% csrf_token %}
+            <button type="submit">Cerrar sesión</button>
+        </form>
+    </nav>
+</header>
+
+
+<div class="contenedor">
+
+    <div class="usuario">
+        Usuario conectado:
+        <strong>{{ request.user.username }}</strong>
+    </div>
+
+
+    {% if messages %}
+        {% for message in messages %}
+            <div class="mensaje">
+                {{ message }}
+            </div>
+        {% endfor %}
+    {% endif %}
+
+
+    <div class="barra-superior">
+
+        <h2>Panel de administración</h2>
+
+        {% if es_admin %}
+            <a
+                href="{% url 'producto_crear' %}"
+                class="btn btn-crear"
+            >
+                + Crear producto
+            </a>
+        {% endif %}
+
+    </div>
+
+
+    <div class="tabla-contenedor">
+
+        {% if productos %}
+
+            <table>
+
+                <thead>
+                    <tr>
+                        <th>Nombre</th>
+                        <th>Categoría</th>
+                        <th>SKU</th>
+                        <th>Precio</th>
+                        <th>Stock</th>
+
+                        {% if es_admin %}
+                            <th>Acciones</th>
+                        {% endif %}
+                    </tr>
+                </thead>
+
+                <tbody>
+
+                    {% for producto in productos %}
+
+                        <tr>
+
+                            <td>
+                                {{ producto.nombre }}
+                            </td>
+
+                            <td>
+                                {{ producto.categoria.nombre }}
+                            </td>
+
+                            <td>
+                                {{ producto.sku }}
+                            </td>
+
+                            <td>
+                                ${{ producto.precio }}
+                            </td>
+
+                            <td>
+                                {{ producto.stock }}
+                            </td>
+
+                            {% if es_admin %}
+
+                                <td>
+                                    <div class="acciones">
+
+                                        <a
+                                            href="{% url 'producto_editar' producto.pk %}"
+                                            class="btn btn-editar"
+                                        >
+                                            Editar
+                                        </a>
+
+                                        <a
+                                            href="{% url 'producto_eliminar' producto.pk %}"
+                                            class="btn btn-eliminar"
+                                        >
+                                            Eliminar
+                                        </a>
+
+                                    </div>
+                                </td>
+
+                            {% endif %}
+
+                        </tr>
+
+                    {% endfor %}
+
+                </tbody>
+
+            </table>
+
+        {% else %}
+
+            <div class="sin-productos">
+
+                <h3>No hay productos registrados</h3>
+
+                {% if es_admin %}
+                    <p>
+                        Puedes comenzar agregando un nuevo producto.
+                    </p>
+
+                    <a
+                        href="{% url 'producto_crear' %}"
+                        class="btn btn-crear"
+                    >
+                        Crear primer producto
+                    </a>
+                {% else %}
+                    <p>
+                        Actualmente no hay productos disponibles.
+                    </p>
+                {% endif %}
+
+            </div>
+
+        {% endif %}
+
+    </div>
+
+</div>
+
+</body>
+</html>
